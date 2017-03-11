@@ -1,0 +1,35 @@
+.tile{
+  cursor: pointer;
+
+  &:hover{
+    opacity: 0.9;
+  }
+}
+
+.markedTile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(51, 51, 51, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.markedTileIcon {
+  width: 90%;
+}
+
+.image{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-size: cover;
+  background-position: center center;
+}

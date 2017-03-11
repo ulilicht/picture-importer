@@ -1,66 +1,111 @@
 /* @flow */
-import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { increment, doubleAsync } from '../../redux/modules/counter'
-import DuckImage from './Duck.jpg'
+import React, {PropTypes} from 'react'
 import classes from './HomeView.scss'
+import moment from 'moment';
 
-// We can use Flow (http://flowtype.org/) to type our component's props
-// and state. For convenience we've included both regular propTypes and
-// Flow types, but if you want to try just using Flow you'll want to
-// disable the eslint rule `react/prop-types`.
-// NOTE: You can run `npm run flow:check` to check for any errors in your
-// code, or `npm i -g flow-bin` to have access to the binary globally.
-// Sorry Windows users :(.
-type Props = {
-  counter: number,
-  doubleAsync: Function,
-  increment: Function
-};
+import SourceList from 'components/SourceList'
+import TargetList from 'components/TargetList'
+import ImportingProgress from 'components/ImportingProgress';
+import AppBar from 'material-ui/AppBar'
 
-// We avoid using the `@connect` decorator on the class definition so
-// that we can export the undecorated component for testing.
-// See: http://rackt.github.io/redux/docs/recipes/WritingTests.html
-export class HomeView extends React.Component {
-  props: Props;
+import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
+import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import RefreshIndicator from 'material-ui/RefreshIndicator';
+import Error from 'components/Error'
+
+class HomeView extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      importName: moment().format('YYYYMMDD[_]')
+    }
+  }
+
   static propTypes = {
-    counter: PropTypes.number.isRequired,
-    doubleAsync: PropTypes.func.isRequired,
-    increment: PropTypes.func.isRequired
+    importDirectory: PropTypes.func.isRequired,
+    picturesDirectory: PropTypes.string.isRequired
   };
 
-  render () {
+  componentDidMount = () => {
+    this.props.loadTargetDirectories();
+    this.props.loadSrcDirectories();
+  }
+
+  onInputChange = (event) => {
+    this.setState({importName: event.target.value})
+  }
+
+  onSubmitClick = () => {
+    this.props.importDirectory(this.state.importName)
+  }
+
+  renderContent() {
     return (
-      <div className='container text-center'>
-        <div className='row'>
-          <div className='col-xs-2 col-xs-offset-5'>
-            <img className={classes.duck}
-              src={DuckImage}
-              alt='This is a duck, because Redux.' />
-          </div>
-        </div>
-        <h1>Welcome to the React Redux Starter Kit</h1>
-        <h2>
-          Sample Counter:
-          {' '}
-          <span className={classes['counter--green']}>{this.props.counter}</span>
-        </h2>
-        <button className='btn btn-default' onClick={this.props.increment}>
-          Increment
-        </button>
-        {' '}
-        <button className='btn btn-default' onClick={this.props.doubleAsync}>
-          Double (Async)
-        </button>
+      <Card className={classes.homeViewInner}>
+        {this.props.isImporting && <ImportingProgress isSuccessful={false} isLoading={true}/>}
+        <CardHeader
+          title="Source Directories"
+          subtitle="The directories found on ###CAMERA### "
+        />
+        <CardText>
+          <SourceList />
+        </CardText>
+        <CardHeader
+          title="Import Targets"
+          subtitle="Select the Image Category"
+        />
+        <CardText>
+          <Paper zDepth={1}>
+            <TargetList />
+          </Paper>
+        </CardText>
+
+        <CardText>
+          <TextField
+            floatingLabelText="Type the Directory Name"
+            value={this.state.importName}
+            onChange={this.onInputChange}
+          />
+
+        </CardText>
+        <CardActions style={{textAlign: 'right'}}>
+          <RaisedButton label="Import Images"
+                        primary={true}
+                        onClick={this.onSubmitClick}
+          />
+        </CardActions>
+      </Card>
+    );
+  }
+
+  renderInitialLoading() {
+    return (
+      <RefreshIndicator
+        size={50}
+        top={70}
+        left={0}
+        loadingColor="#FF9800"
+        status="loading"
+      />
+    );
+  }
+
+  render() {
+
+    const content = this.props.isLoading ? this.renderInitialLoading() : this.renderContent();
+    return (
+      <div className={classes.homeView}>
+        <AppBar
+          title="Picture Importer"
+        />
+
+        {this.props.hasError ? <Error /> : content}
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  counter: state.counter
-})
-export default connect(mapStateToProps, {
-  increment: () => increment(1),
-  doubleAsync
-})(HomeView)
+export default HomeView

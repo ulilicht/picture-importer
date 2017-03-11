@@ -1,0 +1,22 @@
+.importing {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  padding-top: 80px;
+}
+
+.importingText{
+  text-align: center;
+  font-size: 24px;
+  padding: 30px;
+}
+
+.importingContent {
+  width: 400px;
+}

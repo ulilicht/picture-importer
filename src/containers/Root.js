@@ -1,6 +1,9 @@
-import React, { PropTypes } from 'react'
-import { Provider } from 'react-redux'
-import { Router } from 'react-router'
+import React, {PropTypes} from 'react'
+import {Provider} from 'react-redux'
+import {Router} from 'react-router'
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 export default class Root extends React.Component {
   static propTypes = {
@@ -9,7 +12,8 @@ export default class Root extends React.Component {
     store: PropTypes.object.isRequired
   };
 
-  get content () {
+
+  get content() {
     return (
       <Router history={this.props.history}>
         {this.props.routes}
@@ -17,7 +21,7 @@ export default class Root extends React.Component {
     )
   }
 
-  get devTools () {
+  get devTools() {
     if (__DEBUG__) {
       if (__DEBUG_NEW_WINDOW__) {
         if (!window.devToolsExtension) {
@@ -32,13 +36,23 @@ export default class Root extends React.Component {
     }
   }
 
-  render () {
+  render() {
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: '#03A9F4',
+        primary2Color: '#40C4FF',
+        pickerHeaderColor: '#03A9F4',
+      }
+    });
+
     return (
       <Provider store={this.props.store}>
-        <div style={{ height: '100%' }}>
-          {this.content}
-          {this.devTools}
-        </div>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div style={{ height: '100%' }}>
+            {this.content}
+            {this.devTools}
+          </div>
+        </MuiThemeProvider>
       </Provider>
     )
   }
