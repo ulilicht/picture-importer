@@ -26,7 +26,7 @@ export const loadTargetDirectories = () => {
         const directories = getDirectories(targetDir);
         dispatch(setTargetDirectories(directories));
       } catch (e) {
-        dispatch(setError(`Target <code>${targetDir}</code> could not be loaded`, false, true, loadTargetDirectories));
+        dispatch(setError(`Target <code>${targetDir}</code> could not be loaded`, true, true, loadTargetDirectories));
       }
       resolve();
     });

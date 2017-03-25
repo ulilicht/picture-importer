@@ -27,7 +27,7 @@ export const loadSrcDirectories = () => {
         dispatch(setSourceDirectories(directories));
       } catch (e) {
         dispatch(setError(`Source <code>${srcDirectories}</code> could not be loaded`,
-          false, true, loadSrcDirectories));
+          true, true, loadSrcDirectories));
       }
 
       resolve();
