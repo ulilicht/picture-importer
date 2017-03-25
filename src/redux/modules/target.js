@@ -8,8 +8,8 @@ const initialState = {
 
 export const SET_TARGET_DIRECTORIES = 'SET_TARGET_DIRECTORIES';
 
-export function setTargetDirectories(directories) {
-  return {type: SET_TARGET_DIRECTORIES, payload: directories}
+export function setTargetDirectories (directories) {
+  return {type: SET_TARGET_DIRECTORIES, payload: directories};
 }
 
 // This is a thunk, meaning it is a function that immediately
@@ -26,11 +26,11 @@ export const loadTargetDirectories = () => {
         const directories = getDirectories(targetDir);
         dispatch(setTargetDirectories(directories));
       } catch (e) {
-        dispatch(setError(`Target <code>${targetDir}</code> could not be loaded`, false, true, loadTargetDirectories))
+        dispatch(setError(`Target <code>${targetDir}</code> could not be loaded`, false, true, loadTargetDirectories));
       }
       resolve();
     });
-  }
+  };
 };
 
 export const actions = {
@@ -46,7 +46,7 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       directories: action.payload,
       isLoading: false
-    })
+    });
   }
 };
 
@@ -54,8 +54,8 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-export default function targetReducer(state = initialState, action) {
+export default function targetReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
 
-  return handler ? handler(state, action) : state
+  return handler ? handler(state, action) : state;
 }

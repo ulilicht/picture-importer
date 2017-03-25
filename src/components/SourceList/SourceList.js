@@ -1,14 +1,10 @@
-import React, {PropTypes} from 'react'
-import classes from './SourceList.scss'
+import React, {PropTypes} from 'react';
+import classes from './SourceList.scss';
 
 import {GridList, GridTile} from 'material-ui/GridList';
 import CheckIcon from 'material-ui/svg-icons/action/check-circle';
 
 class SourceList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static propTypes = {
     sourceDirectories: PropTypes.array.isRequired,
     markedDirectories: PropTypes.array.isRequired,
@@ -18,29 +14,29 @@ class SourceList extends React.Component {
   };
 
   isDirectoryMarked = (dir) => {
-    return this.props.markedDirectories.indexOf(dir.path) > -1
+    return this.props.markedDirectories.indexOf(dir.path) > -1;
   }
 
   onDirectoryClick = (dir) => {
     return this.isDirectoryMarked(dir)
       ? this.props.unMarkDirectory(dir.path)
-      : this.props.markDirectory(dir.path)
+      : this.props.markDirectory(dir.path);
   }
 
-  render() {
+  render () {
     const styles = {
       root: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: 'space-around',
+        justifyContent: 'space-around'
       },
       gridList: {
         display: 'flex',
         flexWrap: 'nowrap',
-        overflowX: 'auto',
+        overflowX: 'auto'
       },
       titleStyle: {
-        color: '#ffffff',
+        color: '#ffffff'
       },
       markedTileIcon: {
         width: '30%',
@@ -51,8 +47,8 @@ class SourceList extends React.Component {
     const checkedTile = (
       <div className={classes.markedTile}>
         <CheckIcon className={classes.markedTileIcon}
-                   style={styles.markedTileIcon}
-                   color="rgba(255, 255, 255, 0.85)"
+          style={styles.markedTileIcon}
+          color="rgba(255, 255, 255, 0.85)"
         />
       </div>
     );
@@ -78,8 +74,8 @@ class SourceList extends React.Component {
         ))}
       </GridList>
 
-    )
+    );
   }
 }
 
-export default SourceList
+export default SourceList;

@@ -4,9 +4,7 @@
     "standard",
     "standard-react"
   ],
-  "plugins" : [
-    "flow-vars"
-  ],
+  "plugins" : [],
   "env"     : {
     "browser" : true
   },
@@ -19,7 +17,8 @@
     "__BASENAME__" : false
   },
   "rules": {
-    "semi": [2],
-    "max-len": [2, 120, 2]
+    "semi": [2, "always"],
+    "max-len": [2, 120, 2],
+    "react/jsx-no-bind": [2, {"allowArrowFunctions": true}]
   }
 }

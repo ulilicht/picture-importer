@@ -1,8 +1,8 @@
-import {connect} from 'react-redux'
-import {importDirectory} from '../../redux/modules/directories'
-import HomeView from './HomeView'
+import {connect} from 'react-redux';
+import {importDirectory} from '../../redux/modules/directories';
+import HomeView from './HomeView';
 import {loadTargetDirectories} from '../../redux/modules/target';
-import {loadSrcDirectories} from '../../redux/modules/source'
+import {loadSrcDirectories} from '../../redux/modules/source';
 
 const mapStateToProps = (state) => {
   return {
@@ -11,16 +11,15 @@ const mapStateToProps = (state) => {
     picturesDirectory: state.settings.picturesDirectory,
     basePath: state.settings.basePath,
     hasError: state.error.hasError
-  }
+  };
 };
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
     importDirectory: dirName => dispatch(importDirectory(dirName)),
     loadSrcDirectories: () => dispatch(loadSrcDirectories()),
     loadTargetDirectories: () => dispatch(loadTargetDirectories())
-  }
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeView)
+export default connect(mapStateToProps, mapDispatchToProps)(HomeView);

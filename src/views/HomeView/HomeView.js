@@ -1,31 +1,36 @@
-import React, {PropTypes} from 'react'
-import classes from './HomeView.scss'
+import React, {PropTypes} from 'react';
+import classes from './HomeView.scss';
 import moment from 'moment';
 
-import SourceList from 'components/SourceList'
-import TargetList from 'components/TargetList'
+import SourceList from 'components/SourceList';
+import TargetList from 'components/TargetList';
 import ImportingProgress from 'components/ImportingProgress';
 
-import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
-import Paper from 'material-ui/Paper'
-import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
+import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import Error from 'components/Error'
+import Error from 'components/Error';
 
 class HomeView extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor (props) {
+    super(props);
 
     this.state = {
       importName: moment().format('YYYYMMDD[_]')
-    }
+    };
   }
 
   static propTypes = {
     importDirectory: PropTypes.func.isRequired,
     basePath: PropTypes.string.isRequired,
-    picturesDirectory: PropTypes.string.isRequired
+    picturesDirectory: PropTypes.string.isRequired,
+    isImporting: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    hasError: PropTypes.bool.isRequired,
+    loadSrcDirectories: PropTypes.func.isRequired,
+    loadTargetDirectories: PropTypes.func.isRequired
   };
 
   componentDidMount = () => {
@@ -34,20 +39,20 @@ class HomeView extends React.Component {
   }
 
   onInputChange = (event) => {
-    this.setState({importName: event.target.value})
+    this.setState({importName: event.target.value});
   }
 
   onSubmitClick = () => {
-    this.props.importDirectory(this.state.importName)
+    this.props.importDirectory(this.state.importName);
   }
 
-  renderContent() {
+  renderContent () {
     return (
       <Card className={classes.homeViewInner}>
-        {this.props.isImporting && <ImportingProgress isSuccessful={false} isLoading={true}/>}
+        {this.props.isImporting && <ImportingProgress isSuccessful={false} isLoading />}
         <CardHeader
           title="Source Directories"
-          subtitle={"The directories found on " + this.props.basePath}
+          subtitle={'The directories found on ' + this.props.basePath}
         />
         <CardText>
           <SourceList />
@@ -72,15 +77,15 @@ class HomeView extends React.Component {
         </CardText>
         <CardActions style={{textAlign: 'right'}}>
           <RaisedButton label="Import Images"
-                        primary={true}
-                        onClick={this.onSubmitClick}
+            primary
+            onClick={this.onSubmitClick}
           />
         </CardActions>
       </Card>
     );
   }
 
-  renderInitialLoading() {
+  renderInitialLoading () {
     return (
       <RefreshIndicator
         size={50}
@@ -92,16 +97,15 @@ class HomeView extends React.Component {
     );
   }
 
-  render() {
-
+  render () {
     const content = this.props.isLoading ? this.renderInitialLoading() : this.renderContent();
     return (
       <div className={classes.homeView}>
 
         {this.props.hasError ? <Error /> : content}
       </div>
-    )
+    );
   }
 }
 
-export default HomeView
+export default HomeView;

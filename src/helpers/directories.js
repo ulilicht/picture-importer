@@ -1,6 +1,6 @@
-import fs from 'fs'
-import path from 'path'
-import glob from 'glob'
+import fs from 'fs';
+import path from 'path';
+import glob from 'glob';
 
 /**
  * Returns all directories within srcpath, their name, path and a preview image
@@ -20,10 +20,9 @@ export const getDirectoriesWithPreviewImage = (srcpath) => {
       name: dir,
       path: srcpath + dir,
       img: allImages[0] || null
-    }
-  })
+    };
+  });
 };
-
 
 /**
  * Returns all directories within a srcpath
@@ -34,5 +33,5 @@ export const getDirectories = (srcpath) => {
   return dirs.map(dir => ({
     name: dir,
     path: path.join(srcpath, dir)
-  }))
+  }));
 };

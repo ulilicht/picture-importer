@@ -1,2 +1,2 @@
-import SettingsView from './SettingsViewContainer'
-export default SettingsView
+import SettingsView from './SettingsViewContainer';
+export default SettingsView;

@@ -1,7 +1,7 @@
-import glob from 'glob'
-import fs from 'fs'
-import path from 'path'
-import mkdirp from 'mkdirp'
+import glob from 'glob';
+import fs from 'fs';
+import path from 'path';
+import mkdirp from 'mkdirp';
 
 /**
  *
@@ -27,7 +27,7 @@ export const copyHelper = (importPath, directoriesToProcess) => {
     };
 
     jpegsToProcess = jpegsToProcess.concat(glob.sync('@(*.jpg|*.jpeg|*.JPG|*.JPEG)', globOptions));
-    allFiles = allFiles.concat(glob.sync('*.*', globOptions))
+    allFiles = allFiles.concat(glob.sync('*.*', globOptions));
   });
 
   const fileCopyPromises = [];
@@ -39,7 +39,6 @@ export const copyHelper = (importPath, directoriesToProcess) => {
     fileCopyPromises.push(copyFileToFolder(allFilesItem, importPath.backupDirectory));
   });
 
-
   return fileCopyPromises;
 
   // console.log(importPath, jpegsToProcess, allFiles);
@@ -48,20 +47,20 @@ export const copyHelper = (importPath, directoriesToProcess) => {
 
 const createDirectories = importPath => {
   if (fs.existsSync(importPath.picturesDirectory)) {
-    return createError(`The directory '${importPath.picturesDirectory}' already exists.`)
+    return createError(`The directory '${importPath.picturesDirectory}' already exists.`);
   }
 
   if (fs.existsSync(importPath.backupDirectory)) {
-    return createError(`The backup directory '${importPath.backupDirectory}' already exists.`)
+    return createError(`The backup directory '${importPath.backupDirectory}' already exists.`);
   }
 
   const importDirectoryWasCreated = mkdirp.sync(importPath.picturesDirectory);
   const backupDirectoryWasCreated = mkdirp.sync(importPath.backupDirectory);
   if (importDirectoryWasCreated === -1) {
-    return createError(`The directory '${importPath.picturesDirectory}' could not be created.`)
+    return createError(`The directory '${importPath.picturesDirectory}' could not be created.`);
   }
   if (backupDirectoryWasCreated === -1) {
-    return createError(`The backup directory '${importPath.backupDirectory}' could not be created.`)
+    return createError(`The backup directory '${importPath.backupDirectory}' could not be created.`);
   }
 
   return createSuccess('Import Directories have been created');
@@ -71,7 +70,7 @@ const createError = msg => ({error: true, msg});
 const createSuccess = msg => ({error: false, msg});
 
 const copyFileToFolder = (source, targetFolder) => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const readStream = fs.createReadStream(source);
     readStream.on('error', rejectCleanup);
 
@@ -80,7 +79,7 @@ const copyFileToFolder = (source, targetFolder) => {
     const writeStream = fs.createWriteStream(targetFile);
     writeStream.on('error', rejectCleanup);
 
-    function rejectCleanup(err) {
+    function rejectCleanup (err) {
       readStream.destroy();
       writeStream.end();
       reject(err);

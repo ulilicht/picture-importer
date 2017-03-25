@@ -1,40 +1,43 @@
-import React, {PropTypes} from 'react'
-import classes from './SettingsView.scss'
+import React, {PropTypes} from 'react';
+import classes from './SettingsView.scss';
 
-import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
+import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class SettingsView extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
       basePath: props.basePath,
       picturesDirectory: props.picturesDirectory,
-      backupDirectory: props.backupDirectory,
-    }
+      backupDirectory: props.backupDirectory
+    };
   }
 
   static propTypes = {
+    setBasePath: PropTypes.func.isRequired,
     basePath: PropTypes.string.isRequired,
     basePathExists: PropTypes.bool.isRequired,
     picturesDirectory: PropTypes.string.isRequired,
+    setPicturesDirectory: PropTypes.func.isRequired,
     picturesDirectoryExists: PropTypes.bool.isRequired,
     backupDirectory: PropTypes.string.isRequired,
-    backupDirectoryExists: PropTypes.bool.isRequired
+    backupDirectoryExists: PropTypes.bool.isRequired,
+    setBackupDirectory: PropTypes.func.isRequired
   };
 
   onBasePathChange = (event) => {
-    this.setState({basePath: event.target.value})
+    this.setState({basePath: event.target.value});
   };
 
   onPicturesDirectoryChange = (event) => {
-    this.setState({picturesDirectory: event.target.value})
+    this.setState({picturesDirectory: event.target.value});
   };
 
   onBackupDirectoryChange = (event) => {
-    this.setState({backupDirectory: event.target.value})
+    this.setState({backupDirectory: event.target.value});
   };
 
   onSubmitClick = (event) => {
@@ -43,7 +46,7 @@ class SettingsView extends React.Component {
     this.props.setBackupDirectory(this.state.backupDirectory);
   };
 
-  render() {
+  render () {
     return (
       <Card className={classes.settingsViewInner}>
         <CardHeader
@@ -56,7 +59,7 @@ class SettingsView extends React.Component {
               floatingLabelText="Base import Path"
               value={this.state.basePath}
               errorText={this.props.basePathExists ? null : 'This path does not exist'}
-              fullWidth={true}
+              fullWidth
               onChange={this.onBasePathChange}
             />
           </div>
@@ -65,7 +68,7 @@ class SettingsView extends React.Component {
               floatingLabelText="Pictures Directory"
               value={this.state.picturesDirectory}
               errorText={this.props.picturesDirectoryExists ? null : 'This path does not exist'}
-              fullWidth={true}
+              fullWidth
               onChange={this.onPicturesDirectoryChange}
             />
           </div>
@@ -74,20 +77,20 @@ class SettingsView extends React.Component {
               floatingLabelText="Backup Directory"
               value={this.state.backupDirectory}
               errorText={this.props.backupDirectoryExists ? null : 'This path does not exist'}
-              fullWidth={true}
+              fullWidth
               onChange={this.onBackupDirectoryChange}
             />
           </div>
         </CardText>
         <CardActions style={{textAlign: 'right'}}>
           <RaisedButton label="Save Settings"
-                        primary={true}
-                        onClick={this.onSubmitClick}
+            primary
+            onClick={this.onSubmitClick}
           />
         </CardActions>
       </Card>
-    )
+    );
   }
 }
 
-export default SettingsView
+export default SettingsView;

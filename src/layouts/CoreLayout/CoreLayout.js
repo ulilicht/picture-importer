@@ -5,16 +5,14 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import CameraIcon from 'material-ui/svg-icons/image/linked-camera';
-import {Link} from 'react-router'
-import { browserHistory } from 'react-router';
 
 class CoreLayout extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = {
       isNavigationOpen: false
-    }
+    };
   }
 
   toggleNavigation = () => {
@@ -26,7 +24,7 @@ class CoreLayout extends React.Component {
     this.setState({isNavigationOpen: false});
   }
 
-  render() {
+  render () {
     const marginTopStyle = {
       marginTop: '64px'
     };
@@ -38,22 +36,21 @@ class CoreLayout extends React.Component {
           onLeftIconButtonTouchTap={this.toggleNavigation}
         />
         <Drawer open={this.state.isNavigationOpen}
-                overlayStyle={marginTopStyle}
-                containerStyle={marginTopStyle}
-                docked={false}
-                onRequestChange={this.toggleNavigation}>
+          overlayStyle={marginTopStyle}
+          containerStyle={marginTopStyle}
+          docked={false}
+          onRequestChange={this.toggleNavigation}>
           <MenuItem leftIcon={<CameraIcon />} onTouchTap={() => this.navigateTo('/')}>Import</MenuItem>
           <MenuItem leftIcon={<SettingsIcon />} onTouchTap={() => this.navigateTo('/settings')}>Settings</MenuItem>
         </Drawer>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 
-
 CoreLayout.propTypes = {
   children: PropTypes.element
-}
+};
 
-export default CoreLayout
+export default CoreLayout;

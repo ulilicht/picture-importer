@@ -1,2 +1,2 @@
-import HomeView from './HomeViewContainer'
-export default HomeView
+import HomeView from './HomeViewContainer';
+export default HomeView;

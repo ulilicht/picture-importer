@@ -6,28 +6,28 @@ const initialState = {
 export const SET_ERROR = 'SET_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-export function setError(message, canBeClosed, isRetryPossible, retryAction) {
+export function setError (message, canBeClosed, isRetryPossible, retryAction) {
   const error = {
     message, canBeClosed, isRetryPossible, retryAction
   };
 
-  return {type: SET_ERROR, payload: error}
+  return {type: SET_ERROR, payload: error};
 }
 
-function removeError(errorObject) {
-  return {type: CLEAR_ERROR, payload: errorObject}
+function removeError (errorObject) {
+  return {type: CLEAR_ERROR, payload: errorObject};
 }
 
-export function clearError(errorObject) {
+export function clearError (errorObject) {
   return dispatch => {
     dispatch(removeError(errorObject));
 
     if (errorObject.isRetryPossible) {
-      dispatch(errorObject.retryAction())
+      dispatch(errorObject.retryAction());
     }
 
     return true;
-  }
+  };
 }
 
 export const actions = {
@@ -41,7 +41,7 @@ export const actions = {
 const ACTION_HANDLERS = {
   [SET_ERROR]: (state, action) => {
     const errorList = state.errorList.concat(action.payload);
-    return Object.assign({}, state, {errorList, hasError: true})
+    return Object.assign({}, state, {errorList, hasError: true});
   },
   [CLEAR_ERROR]: (state, action) => {
     const errorIndex = state.errorList.indexOf(action.payload);
@@ -50,7 +50,7 @@ const ACTION_HANDLERS = {
       newErrorList.splice(errorIndex, 1);
     }
     const hasError = newErrorList.length > 0;
-    return Object.assign({}, state, {errorList: newErrorList, hasError})
+    return Object.assign({}, state, {errorList: newErrorList, hasError});
   }
 };
 
@@ -58,8 +58,8 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-export default function sourceReducer(state = initialState, action) {
+export default function sourceReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
 
-  return handler ? handler(state, action) : state
+  return handler ? handler(state, action) : state;
 }

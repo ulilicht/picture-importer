@@ -8,8 +8,8 @@ const initialState = {
 
 export const SET_SOURCE_DIRECTORIES = 'SET_SOURCE_DIRECTORIES';
 
-export function setSourceDirectories(directories) {
-  return {type: SET_SOURCE_DIRECTORIES, payload: directories}
+export function setSourceDirectories (directories) {
+  return {type: SET_SOURCE_DIRECTORIES, payload: directories};
 }
 
 // This is a thunk, meaning it is a function that immediately
@@ -20,19 +20,19 @@ export function setSourceDirectories(directories) {
 // reducer take care of this logic.
 export const loadSrcDirectories = () => {
   return (dispatch, getState) => {
-
     return new Promise((resolve) => {
       const srcDirectories = getState().settings.basePath;
       try {
         const directories = getDirectoriesWithPreviewImage(srcDirectories);
         dispatch(setSourceDirectories(directories));
       } catch (e) {
-        dispatch(setError(`Source <code>${srcDirectories}</code> could not be loaded`, false, true, loadSrcDirectories))
+        dispatch(setError(`Source <code>${srcDirectories}</code> could not be loaded`,
+          false, true, loadSrcDirectories));
       }
 
       resolve();
     });
-  }
+  };
 };
 
 export const actions = {
@@ -48,7 +48,7 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       directories: action.payload,
       isLoading: false
-    })
+    });
   }
 };
 
@@ -56,8 +56,8 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-export default function sourceReducer(state = initialState, action) {
+export default function sourceReducer (state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
 
-  return handler ? handler(state, action) : state
+  return handler ? handler(state, action) : state;
 }

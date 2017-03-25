@@ -1,6 +1,6 @@
-import {connect} from 'react-redux'
-import SettingsView from './SettingsView'
-import {setBasePath, setPicturesDirectory, setBackupDirectory} from '../../redux/modules/settings'
+import {connect} from 'react-redux';
+import SettingsView from './SettingsView';
+import {setBasePath, setPicturesDirectory, setBackupDirectory} from '../../redux/modules/settings';
 
 const mapStateToProps = (state) => {
   return {
@@ -10,16 +10,15 @@ const mapStateToProps = (state) => {
     picturesDirectoryExists: state.settings.picturesDirectoryExists,
     backupDirectory: state.settings.backupDirectory,
     backupDirectoryExists: state.settings.backupDirectoryExists
-  }
+  };
 };
-
 
 const mapDispatchToProps = (dispatch) => {
   return {
-     setBasePath: dirName => dispatch(setBasePath(dirName)),
-     setPicturesDirectory: dirName => dispatch(setPicturesDirectory(dirName)),
-     setBackupDirectory: dirName => dispatch(setBackupDirectory(dirName))
-  }
+    setBasePath: dirName => dispatch(setBasePath(dirName)),
+    setPicturesDirectory: dirName => dispatch(setPicturesDirectory(dirName)),
+    setBackupDirectory: dirName => dispatch(setBackupDirectory(dirName))
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsView)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsView);
