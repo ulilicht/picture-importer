@@ -8,15 +8,15 @@
     "npm": "^3.0.0"
   },
   "build": {
-    "productName": "React Redux Electron Starter",
-    "appId": "YourBundleId",
-    "app-category-type": "public.app-category.yourCategory",
+    "productName": "Picture Importer",
+    "appId": "UlilichtPictureImporter",
+    "app-category-type": "public.app-category.photography",
     "win": {
       "iconUrl": "",
       "setupIcon": ""
     },
     "mac": {
-      "icon": "app_build/icon.icns"
+      "icon": "app_build/new_icon.icns"
     },
     "asar": true
   },

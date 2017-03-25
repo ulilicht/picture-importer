@@ -20,7 +20,7 @@ class Error extends React.Component {
   renderError(error, index) {
     return (
       <div className={classes.errorLine} key={index}>
-        <div>{error.message}</div>
+        <div dangerouslySetInnerHTML={{__html: error.message}}></div>
         <div className={classes.errorAction}>
           <FlatButton onClick={() => this.props.clearError(error)} disabled={!error.isRetryPossible} label="Retry"
                                                          primary={true}/></div>
@@ -32,7 +32,7 @@ class Error extends React.Component {
     return (
       <div>
         <Dialog
-          title="An error occured"
+          title="Please check: "
           modal={true}
           open={this.props.hasError}
         >

@@ -4,9 +4,6 @@ import path from 'path'
 const initialState = {
   markedDirectories: [],
   targetDirectory: '',
-  basePath: '/Volumes/K-r/DCIM/',
-  picturesDirectory: '/Volumes/Tumladen/Fotos_test',
-  backupDirectory: '/Volumes/Tumladen/Fotos_test_archiv',
   isImporting: false,
   importProgress: 0,
   isImportSuccessful: false,
@@ -47,8 +44,8 @@ export function importDirectory(importDir) {
 
     return new Promise((resolve) => {
       const importPath = {
-        picturesDirectory: path.join(getState().directories.picturesDirectory, getState().directories.targetDirectory, importDir),
-        backupDirectory: path.join(getState().directories.backupDirectory, getState().directories.targetDirectory, importDir)
+        picturesDirectory: path.join(getState().settings.picturesDirectory, getState().directories.targetDirectory, importDir),
+        backupDirectory: path.join(getState().settings.backupDirectory, getState().directories.targetDirectory, importDir)
       };
 
       const directoriesToProcess = getState().directories.markedDirectories;

@@ -5,13 +5,18 @@ import DevTools from '../../containers/DevToolsWindow'
 /* istanbul ignore next  */
 export default function createDevToolsWindow (store) {
   const win = window.open(
-    null,
+    'about:blank',
     'redux-devtools', // give it a name so it reuses the same window
     `width=400,height=${window.outerHeight},menubar=no,location=no,resizable=yes,scrollbars=no,status=no`
   )
 
   // reload in case it's reusing the same window with the old content
-  win.location.reload()
+  if(win.location.reload){
+    win.location.reload()
+  }else{
+    console.log('RELOAD IN DEVTOOLS WINDOW FAILED')
+  }
+
 
   // wait a little bit for it to reload, then render
   setTimeout(() => {

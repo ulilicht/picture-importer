@@ -21,12 +21,12 @@ export function setTargetDirectories(directories) {
 export const loadTargetDirectories = () => {
   return (dispatch, getState) => {
     return new Promise((resolve) => {
-      const targetDir = getState().directories.picturesDirectory;
+      const targetDir = getState().settings.picturesDirectory;
       try {
         const directories = getDirectories(targetDir);
         dispatch(setTargetDirectories(directories));
       } catch (e) {
-        dispatch(setError(`Target ${targetDir} could not be loaded`, false, true, loadTargetDirectories))
+        dispatch(setError(`Target <code>${targetDir}</code> could not be loaded`, false, true, loadTargetDirectories))
       }
       resolve();
     });

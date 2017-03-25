@@ -22,12 +22,12 @@ export const loadSrcDirectories = () => {
   return (dispatch, getState) => {
 
     return new Promise((resolve) => {
-      const srcDirectories = getState().directories.basePath;
+      const srcDirectories = getState().settings.basePath;
       try {
         const directories = getDirectoriesWithPreviewImage(srcDirectories);
         dispatch(setSourceDirectories(directories));
       } catch (e) {
-        dispatch(setError(`Source ${srcDirectories} could not be loaded`, false, true, loadSrcDirectories))
+        dispatch(setError(`Source <code>${srcDirectories}</code> could not be loaded`, false, true, loadSrcDirectories))
       }
 
       resolve();

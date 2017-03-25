@@ -1,24 +1,56 @@
-import React, { PropTypes } from 'react'
-import '../../styles/core.scss'
+import React, {PropTypes} from 'react';
+import '../../styles/core.scss';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import CameraIcon from 'material-ui/svg-icons/image/linked-camera';
+import {Link} from 'react-router'
+import { browserHistory } from 'react-router';
 
-// Note: Stateless/function components *will not* hot reload!
-// react-transform *only* works on component classes.
-//
-// Since layouts rarely change, they are a good place to
-// leverage React's new Stateless Functions:
-// https://facebook.github.io/react/docs/reusable-components.html#stateless-functions
-//
-// CoreLayout is a pure function of its props, so we can
-// define it with a plain javascript function...
-function CoreLayout ({ children }) {
-  return (
-    <div className='page-container'>
-      <div className='view-container'>
-        {children}
+class CoreLayout extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isNavigationOpen: false
+    }
+  }
+
+  toggleNavigation = () => {
+    this.setState({isNavigationOpen: !this.state.isNavigationOpen});
+  };
+
+  navigateTo = (target) => {
+    this.props.history.push(target);
+    this.setState({isNavigationOpen: false});
+  }
+
+  render() {
+    const marginTopStyle = {
+      marginTop: '64px'
+    };
+
+    return (
+      <div className='page-container'>
+        <AppBar
+          title="Picture Importer"
+          onLeftIconButtonTouchTap={this.toggleNavigation}
+        />
+        <Drawer open={this.state.isNavigationOpen}
+                overlayStyle={marginTopStyle}
+                containerStyle={marginTopStyle}
+                docked={false}
+                onRequestChange={this.toggleNavigation}>
+          <MenuItem leftIcon={<CameraIcon />} onTouchTap={() => this.navigateTo('/')}>Import</MenuItem>
+          <MenuItem leftIcon={<SettingsIcon />} onTouchTap={() => this.navigateTo('/settings')}>Settings</MenuItem>
+        </Drawer>
+        {this.props.children}
       </div>
-    </div>
-  )
+    )
+  }
 }
+
 
 CoreLayout.propTypes = {
   children: PropTypes.element

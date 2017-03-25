@@ -1,4 +1,3 @@
-/* @flow */
 import React, {PropTypes} from 'react'
 import classes from './HomeView.scss'
 import moment from 'moment';
@@ -6,7 +5,6 @@ import moment from 'moment';
 import SourceList from 'components/SourceList'
 import TargetList from 'components/TargetList'
 import ImportingProgress from 'components/ImportingProgress';
-import AppBar from 'material-ui/AppBar'
 
 import {Card, CardText, CardHeader, CardActions} from 'material-ui/Card'
 import Paper from 'material-ui/Paper'
@@ -26,6 +24,7 @@ class HomeView extends React.Component {
 
   static propTypes = {
     importDirectory: PropTypes.func.isRequired,
+    basePath: PropTypes.string.isRequired,
     picturesDirectory: PropTypes.string.isRequired
   };
 
@@ -48,7 +47,7 @@ class HomeView extends React.Component {
         {this.props.isImporting && <ImportingProgress isSuccessful={false} isLoading={true}/>}
         <CardHeader
           title="Source Directories"
-          subtitle="The directories found on ###CAMERA### "
+          subtitle={"The directories found on " + this.props.basePath}
         />
         <CardText>
           <SourceList />
@@ -98,9 +97,6 @@ class HomeView extends React.Component {
     const content = this.props.isLoading ? this.renderInitialLoading() : this.renderContent();
     return (
       <div className={classes.homeView}>
-        <AppBar
-          title="Picture Importer"
-        />
 
         {this.props.hasError ? <Error /> : content}
       </div>

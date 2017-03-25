@@ -8,7 +8,8 @@ const mapStateToProps = (state) => {
   return {
     isLoading: state.source.isLoading || state.target.isLoading,
     isImporting: state.directories.isImporting,
-    picturesDirectory: state.directories.picturesDirectory,
+    picturesDirectory: state.settings.picturesDirectory,
+    basePath: state.settings.basePath,
     hasError: state.error.hasError
   }
 };
