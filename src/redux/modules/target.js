@@ -8,7 +8,7 @@ const initialState = {
 
 export const SET_TARGET_DIRECTORIES = 'SET_TARGET_DIRECTORIES';
 
-export function setTargetDirectories (directories) {
+export function setTargetDirectories(directories) {
   return {type: SET_TARGET_DIRECTORIES, payload: directories};
 }
 
@@ -22,6 +22,12 @@ export const loadTargetDirectories = () => {
   return (dispatch, getState) => {
     return new Promise((resolve) => {
       const targetDir = getState().settings.picturesDirectory;
+
+      if (!getState().settings.backupDirectoryExists) {
+        dispatch(setError(`Backup <code>${getState().settings.backupDirectory}</code> was not found`,
+          true, true, loadTargetDirectories));
+      }
+
       try {
         const directories = getDirectories(targetDir);
         dispatch(setTargetDirectories(directories));
@@ -54,7 +60,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 
-export default function targetReducer (state = initialState, action) {
+export default function targetReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type];
 
   return handler ? handler(state, action) : state;
